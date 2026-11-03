@@ -1,0 +1,217 @@
+<!doctype html>
+<!--
+  DailyBill 隐私政策网页版 —— 由 Tools/gen-privacy-policy.py 生成，请勿手改。
+  改文案的正确顺序：DailyBill/App/PrivacyPolicyView.swift（连同 Strings.swift 的英文）→
+      python3 Tools/gen-privacy-policy.py --write
+  然后把 privacy-site/ 推到 GitHub Pages，并把 URL 同时填进
+  AppLinks.publicPrivacyPolicyURL 与 App Store Connect 的「隐私政策网址」。
+  口径一致性由 Tools/upload-gate.sh 在上传前核对（它跑的就是本脚本的 --check）。
+
+  部署提示：单文件、零外链、JavaScript 只做语言切换（关掉也读得到中英全文），任何静态托管都够用。
+  URL 要长期可用 —— 审核与用户都会在版本上线之后点开它。
+-->
+<html lang="zh-Hans" data-lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DailyBill 隐私政策 · Privacy Policy</title>
+<meta name="description" content="DailyBill 不收集、不上传任何个人数据：AI 识别、存储与导出全部在本机完成。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="DailyBill 隐私政策 · Privacy Policy">
+<meta property="og:description" content="DailyBill 不收集、不上传任何个人数据：AI 识别、存储与导出全部在本机完成。">
+<meta name="theme-color" content="#f0b429">
+<script>
+(function () {
+  /* 语言优先级：?lang= 覆盖 > 上次手动选择（localStorage）> 浏览器语言。
+     这段跑在 <head> 里：先给 <html> 打上 data-lang，避免中英双语叠印闪一下。 */
+  var root = document.documentElement;
+  function pick() {
+    var m = /[?&]lang=(zh|en)/.exec(location.search);
+    if (m) return m[1];
+    try {
+      var saved = window.localStorage.getItem('dailybill.policy.lang');
+      if (saved === 'zh' || saved === 'en') return saved;
+    } catch (e) {}
+    return (navigator.language || 'zh').toLowerCase().indexOf('zh') === 0 ? 'zh' : 'en';
+  }
+  function mark(lang) {
+    root.setAttribute('data-lang', lang);
+    root.setAttribute('lang', lang === 'zh' ? 'zh-Hans' : 'en');
+    var btns = document.querySelectorAll('.langbtn');
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].setAttribute('aria-current', btns[i].getAttribute('data-lang') === lang ? 'true' : 'false');
+    }
+  }
+  window.__dailybillLang = function (lang) {
+    try { window.localStorage.setItem('dailybill.policy.lang', lang); } catch (e) {}
+    mark(lang);
+  };
+  mark(pick());
+  document.addEventListener('DOMContentLoaded', function () {
+    var btns = document.querySelectorAll('.langbtn');
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener('click', function () { window.__dailybillLang(this.getAttribute('data-lang')); });
+    }
+    /* 「本页网址」由脚本就地填：方便把同一个地址粘进 App Store Connect，不必从别处抄 */
+    var slots = document.querySelectorAll('.pageurl');
+    for (var k = 0; k < slots.length; k++) { slots[k].textContent = location.href.split('?')[0]; }
+  });
+})();</script>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #fbfbfd; --card: #ffffff; --ink: #1c1c22; --muted: #6a6a74;
+    --rule: rgba(120,120,132,.24); --accent: #8f5c00; --accent-soft: #fff4d9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0e0e11; --card: #17171c; --ink: #ececf1; --muted: #9a9aa4;
+            --rule: rgba(160,160,175,.22); --accent: #f0b429; --accent-soft: #2a2314; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0 auto; padding: 0 20px 72px; max-width: 760px; background: var(--bg); color: var(--ink);
+    font: 16px/1.7 -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { padding-top: 40px; }
+  .brand { display: flex; align-items: center; gap: 10px; margin: 0 0 22px; }
+  .mark { width: 34px; height: 34px; border-radius: 9px; background: var(--accent); color: #fff8e6;
+          display: grid; place-items: center; font-weight: 700; font-size: 17px; flex: none; }
+  .brand span { color: var(--muted); font-size: 13px; letter-spacing: .02em; }
+  h1 { font-size: 30px; line-height: 1.25; margin: 0 0 8px; letter-spacing: -.01em; }
+  .meta { color: var(--muted); font-size: 13px; margin: 0 0 14px; }
+  .lede { font-size: 16px; margin: 0 0 12px; }
+  .scope { font-size: 13px; line-height: 1.6; color: var(--muted); margin: 0 0 24px;
+           padding: 10px 13px; background: var(--accent-soft); border-radius: 10px; }
+  h2 { font-size: 18px; line-height: 1.45; margin: 0 0 6px; letter-spacing: -.005em; }
+  h2 .num { display: inline-block; min-width: 24px; color: var(--accent); font-variant-numeric: tabular-nums; }
+  p { margin: 0 0 4px; }
+  section { border-top: 1px solid var(--rule); padding: 16px 0 6px; scroll-margin-top: 16px; }
+  section + section { margin-top: 8px; }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  .lang { display: flex; align-items: center; gap: 6px; margin: 0 0 26px; font-size: 13px; color: var(--muted); }
+  .langbtn { font: inherit; font-size: 13px; color: var(--ink); background: var(--card);
+             border: 1px solid var(--rule); border-radius: 999px; padding: 3px 12px; cursor: pointer; }
+  .langbtn[aria-current="true"] { background: var(--accent); border-color: var(--accent);
+                                  color: #fff8e6; font-weight: 600; }
+  nav.toc { background: var(--card); border: 1px solid var(--rule); border-radius: 14px;
+            padding: 14px 18px; margin: 0 0 30px; }
+  nav.toc h2 { font-size: 13px; color: var(--muted); font-weight: 600; margin: 0 0 8px; }
+  nav.toc ol { margin: 0; padding-left: 24px; }
+  nav.toc li { margin: 3px 0; font-size: 14px; }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); text-decoration: underline; }
+  footer { margin-top: 34px; border-top: 1px solid var(--rule); padding-top: 16px; }
+  footer p { margin: 0 0 10px; font-size: 15px; }
+  small { display: block; color: var(--muted); font-size: 12.5px; line-height: 1.65; margin-bottom: 6px; }
+  .url { word-break: break-all; }
+  /* 语言：没有 JavaScript 时中英都留着（谁都读得到全文），跑起来了才只留一种 */
+  html[data-lang="zh"] .en { display: none; }
+  html[data-lang="en"] .zh { display: none; }
+  @media (max-width: 420px) { h1 { font-size: 25px; } body { padding: 0 16px 56px; } }
+  @media print {
+    :root { --bg: #fff; --ink: #000; --muted: #444; --card: #fff; }
+    .lang, nav.toc { display: none; }
+    .zh, .en { display: block !important; }
+    section { break-inside: avoid; }
+  }</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="brand">
+  <div class="mark" aria-hidden="true">¥</div>
+  <span><span class="zh" lang="zh-Hans">DailyBill · AI 记账</span><span class="en" lang="en">DailyBill · AI bookkeeping</span></span>
+</div>
+
+<div class="lang">
+  <span><span class="zh" lang="zh-Hans">语言：</span><span class="en" lang="en">Language: </span></span>
+  <button type="button" class="langbtn" data-lang="zh">中文</button>
+  <button type="button" class="langbtn" data-lang="en" lang="en">English</button>
+</div>
+
+<header>
+  <h1><span class="zh" lang="zh-Hans">隐私政策</span><span class="en" lang="en">Privacy Policy</span></h1>
+  <p class="meta"><span class="zh" lang="zh-Hans">最近更新：2026-11-02</span>
+     <span class="en" lang="en">Last updated: 2026-11-02</span></p>
+  <p class="lede zh" lang="zh-Hans">DailyBill 不收集、不上传任何个人数据。以下是它在你设备上具体做了什么。</p>
+  <p class="lede en" lang="en">DailyBill collects and uploads no personal data. Here is exactly what it does on your device.</p>
+  <p class="scope"><span class="zh" lang="zh-Hans">本页是 DailyBill（iPhone 版）的隐私政策，与 App 内「设置 → 隐私政策」逐条一致：两边由同一份源码生成。</span><span class="en" lang="en">This is the privacy policy for DailyBill on iPhone. It matches the in-app policy under Settings → Privacy Policy clause by clause — both pages are generated from one source.</span></p>
+</header>
+
+<nav class="toc">
+  <h2><span class="zh" lang="zh-Hans">条款目录</span><span class="en" lang="en">Contents</span></h2>
+  <ol>
+      <li><a class="zh" lang="zh-Hans" href="#c1">我们不收集任何数据</a><a class="en" lang="en" href="#c1">We collect no data at all</a></li>
+      <li><a class="zh" lang="zh-Hans" href="#c2">不读相册：图由你自己交出来</a><a class="en" lang="en" href="#c2">No Photo Library access — you hand over each image</a></li>
+      <li><a class="zh" lang="zh-Hans" href="#c3">AI 识别完全在你设备上完成</a><a class="en" lang="en" href="#c3">AI recognition runs entirely on your device</a></li>
+      <li><a class="zh" lang="zh-Hans" href="#c4">数据存在哪里</a><a class="en" lang="en" href="#c4">Where your data lives</a></li>
+      <li><a class="zh" lang="zh-Hans" href="#c5">导出与分享完全由你发起</a><a class="en" lang="en" href="#c5">Exporting and sharing are always initiated by you</a></li>
+      <li><a class="zh" lang="zh-Hans" href="#c6">删除数据与撤回同意</a><a class="en" lang="en" href="#c6">Deleting your data and withdrawing consent</a></li>
+      <li><a class="zh" lang="zh-Hans" href="#c7">儿童与内容</a><a class="en" lang="en" href="#c7">Kids and content</a></li>
+      <li><a class="zh" lang="zh-Hans" href="#c8">反馈与举报</a><a class="en" lang="en" href="#c8">Feedback &amp; reports</a></li>
+  </ol>
+</nav>
+
+<main>
+    <section id="c1">
+      <h2 class="zh" lang="zh-Hans"><span class="num">1</span>我们不收集任何数据</h2>
+      <p class="zh" lang="zh-Hans">DailyBill 不联网：整个 App 没有任何网络请求，也没有账号、广告、埋点或第三方分析 SDK。你的账单、昵称与头像全部只存在这台设备的本机存储里，不会上传到我们或任何第三方的服务器。</p>
+      <h2 class="en" lang="en"><span class="num">1</span>We collect no data at all</h2>
+      <p class="en" lang="en">DailyBill doesn’t use the network: the app makes no network requests and has no accounts, ads, analytics or third-party tracking SDKs. Your entries, nickname and avatar live only in local storage on this device, and are never uploaded to us or to any third party.</p>
+    </section>
+    <section id="c2">
+      <h2 class="zh" lang="zh-Hans"><span class="num">2</span>不读相册：图由你自己交出来</h2>
+      <p class="zh" lang="zh-Hans">DailyBill 没有相册权限，也不会背着你读任何照片。记一笔账单时的图只有两个来源：快捷指令把「截屏」那一步的结果直接递进来，或者你在系统图片选取器里亲手挑一张。系统只把那一张照片的副本交给 App——它看不到图库里的其它内容，也没有写入或删除相册的能力。</p>
+      <h2 class="en" lang="en"><span class="num">2</span>No Photo Library access — you hand over each image</h2>
+      <p class="en" lang="en">DailyBill holds no Photo Library permission and never reads a photo behind your back. An image comes from exactly two places: the Shortcuts action hands its screenshot straight in, or you pick one yourself in the system image picker. The system passes DailyBill only that one copy — the app can't see the rest of your library and has no way to write to or delete anything in it.</p>
+    </section>
+    <section id="c3">
+      <h2 class="zh" lang="zh-Hans"><span class="num">3</span>AI 识别完全在你设备上完成</h2>
+      <p class="zh" lang="zh-Hans">图像识别由内置在本机的大模型（Qwen3-VL 加 llama.cpp）离线推理，图片与文字都不出设备。模型是随 App 一起打包的固定一套，不能替换，也不会把内容送到云端。内存不足以跑这套模型的设备不会加载它：那里 AI 识别不可用，手动记账、月历与导出照常（判据与说明见「设置 → 设备与识别能力」）。</p>
+      <h2 class="en" lang="en"><span class="num">3</span>AI recognition runs entirely on your device</h2>
+      <p class="en" lang="en">Recognition runs offline on a large model bundled on the device (Qwen3-VL with llama.cpp); neither images nor text ever leave it. The model is one fixed set shipped with the app — it can't be swapped, and nothing goes to a cloud. Devices without enough memory don't load it at all: AI recognition is off there while manual bookkeeping, the calendar and export keep working (the rule and the explanation live under Settings → Device &amp; recognition).</p>
+    </section>
+    <section id="c4">
+      <h2 class="zh" lang="zh-Hans"><span class="num">4</span>数据存在哪里</h2>
+      <p class="zh" lang="zh-Hans">账本与设置存在 App 自己的沙盒目录；为了让桌面小组件能显示统计，App 会往同属一个 App Group 的共享容器里写一份精简快照，只含小组件渲染所需的月度汇总与最近几笔的金额、标题。这些内容都在设备本机；如果你开启了 iCloud 云备份，它们会随系统的整机备份一起被备份，那由你的系统设置决定，DailyBill 自己不上传任何数据。锁屏上的小组件会把金额直接画出来，不想让它在解锁之前就露出来，请在「设置 → 隐私」里打开「在小组件里隐藏金额」。</p>
+      <h2 class="en" lang="en"><span class="num">4</span>Where your data lives</h2>
+      <p class="en" lang="en">The ledger and settings live in the app's own sandbox; so that the widgets can show statistics, the app also writes a slim snapshot into an App Group shared container, holding only what a widget renders — monthly totals plus the amounts and titles of the most recent entries. All of it stays on the device. If you have iCloud Backup on, it travels with the system's whole-device backup, which your system settings decide; DailyBill itself uploads nothing. A Lock Screen widget draws amounts in plain sight — if you don't want them visible before you unlock, turn on Hide amounts in widgets under Settings → Privacy.</p>
+    </section>
+    <section id="c5">
+      <h2 class="zh" lang="zh-Hans"><span class="num">5</span>导出与分享完全由你发起</h2>
+      <p class="zh" lang="zh-Hans">「设置」里的导出账单会把账本写成一份文本文件并打开系统分享面板，你可以存到文件系统或发给任何人。这一步不会自动发生，DailyBill 也不会把账本内容发给任何服务。分享面板一关（包括你取消分享），那份临时文件就被删掉；执行恢复初始化时也会清掉临时目录里剩下的导出副本。</p>
+      <h2 class="en" lang="en"><span class="num">5</span>Exporting and sharing are always initiated by you</h2>
+      <p class="en" lang="en">Export in Settings writes the ledger to a text file and opens the system share sheet, so you can save it to the Files app or send it to anyone. This never happens on its own, and DailyBill sends nothing to any service. As soon as the share sheet closes — including when you cancel — that temporary file is deleted; running Reset also clears leftover export copies from the temporary directory.</p>
+    </section>
+    <section id="c6">
+      <h2 class="zh" lang="zh-Hans"><span class="num">6</span>删除数据与撤回同意</h2>
+      <p class="zh" lang="zh-Hans">用「设置」里的恢复初始化即可一次性清空本机全部 DailyBill 数据：账单、分类与外观、昵称与头像、快捷指令待处理请求，以及小组件的共享快照文件本体和临时目录里的导出副本，该操作不可撤销。⚠️ 有一个 iOS 的系统行为要说在前面：直接卸载 App 会带走沙盒里的数据，但 App Group 的共享容器可能继续留在设备上（里面只有那份小组件快照），要等系统回收存储或重装同名 App 时才处理掉。所以想把数据清得干干净净：先执行一次恢复初始化，再卸载 App。我们这边没有任何副本——因为我们从来没有拿到过数据。</p>
+      <h2 class="en" lang="en"><span class="num">6</span>Deleting your data and withdrawing consent</h2>
+      <p class="en" lang="en">Reset in Settings clears every piece of DailyBill data on the device in one go: bills, categories and appearance, nickname and avatar, pending shortcut requests, the widget's shared snapshot file itself, and export copies left in the temporary directory. It can't be undone. ⚠️ One piece of iOS behaviour we should say up front: uninstalling the app removes the sandbox data, but the App Group shared container may remain on the device (it holds only that widget snapshot) until iOS reclaims storage or an app with the same name is reinstalled. So if you want it truly gone: run Reset first, then uninstall. We hold no copy anywhere — we never received any data.</p>
+    </section>
+    <section id="c7">
+      <h2 class="zh" lang="zh-Hans"><span class="num">7</span>儿童与内容</h2>
+      <p class="zh" lang="zh-Hans">DailyBill 不提供发布、评论或陌生人互动功能，没有任何用户之间互相可见的内容。端侧模型只把截图里的账单读成金额与分类；它偶尔会把图上别的文字一起读出来（见下面「反馈与举报」那一条），这些内容只显示在你自己的设备上，也不会被发布出去。本 App 不是为儿童设计的。</p>
+      <h2 class="en" lang="en"><span class="num">7</span>Kids and content</h2>
+      <p class="en" lang="en">DailyBill offers no publishing, commenting or interaction with strangers, and nothing one user can show another. The on-device model only turns the bill in a screenshot into amounts and categories; occasionally it also reads other text that was in the image (see Feedback and reports below), and that shows only on your own device and is never published. This app is not designed for children.</p>
+    </section>
+    <section id="c8">
+      <h2 class="zh" lang="zh-Hans"><span class="num">8</span>反馈与举报</h2>
+      <p class="zh" lang="zh-Hans">内置模型只把截图里的账单读成金额与分类，不生成可发布的内容；但它偶尔也会读出不该出现的文字。如果你看到不该出现的东西，或是对隐私、数据有任何疑义，「设置 → 反馈与举报」里有邮件入口：写清你上传的截图类型与你看到的内容即可。App 不联网，因此没有内置上报通道，也不会自动带走任何账单数据。</p>
+      <h2 class="en" lang="en"><span class="num">8</span>Feedback &amp; reports</h2>
+      <p class="en" lang="en">The built-in model only turns the receipt in your screenshot into an amount and a category; it publishes nothing. It can still misread something that shouldn’t appear, though. If you see such content, or have any privacy or data concern, there’s an email entry under Settings → Feedback &amp; reports — just describe the kind of screenshot you uploaded and what you saw. The app has no network access, so there is no built-in reporting channel, and no ledger data is ever taken along automatically.</p>
+    </section>
+</main>
+
+<footer>
+  <p><span class="zh" lang="zh-Hans">联系邮箱：</span><span class="en" lang="en">Contact: </span><a href="mailto:mathematical-forest@outlook.com">mathematical-forest@outlook.com</a></p>
+  <small class="zh" lang="zh-Hans">这份政策只描述当前这个版本的 DailyBill。若以后行为有变，本页会一并更新并在版本说明里写明。</small>
+  <small class="en" lang="en">This policy describes the current version of DailyBill. If our behavior ever changes, this page is updated along with it and called out in the release notes.</small>
+  <small class="zh" lang="zh-Hans">本页不加载任何第三方资源：没有统计、没有广告、没有外部字体或脚本，也不写 Cookie。你此刻读到的这份网页本身不留痕。<br><span class="url">本页网址：<span class="pageurl"></span></span></small>
+  <small class="en" lang="en">This page loads no third-party resources: no analytics, no ads, no external fonts or scripts, and no cookies. Reading it leaves no trace.<br><span class="url">Address of this page: <span class="pageurl"></span></span></small>
+</footer>
+
+</div>
+</body>
+</html>
